@@ -71,6 +71,11 @@ onMounted(() => {
   <main class="container">
       <div class="card">
         <h2>📋 DAFTAR KEGIATAN</h2>
+  <label class="toggle-show">
+  <input type="checkbox" v-model="showCompleted" />
+   Tampilkan yang sudah selesai
+  </label>
+  
       </div>
   </main>
 </template>
