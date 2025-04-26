@@ -68,7 +68,11 @@ onMounted(() => {
       </div>
     </nav> 
   </div>
-
+  <main class="container">
+      <div class="card">
+        <h2>📋 DAFTAR KEGIATAN</h2>
+      </div>
+  </main>
 </template>
 
 
