@@ -1,5 +1,4 @@
 <script setup>
-<script setup>
 import { ref, computed, onMounted } from 'vue';
 
 const tasks = ref([
@@ -62,21 +61,24 @@ onMounted(() => {
 
 <template>
   <div id="app">
+    <!-- Navbar -->
     <nav class="navbar">
       <div class="navbar-content">
         <h1>Andrino's Activity List</h1>
       </div>
     </nav> 
-  </div>
-  <main class="container">
+
+    <!-- Container -->
+    <div class="container">
       <div class="card">
         <h2>📋 DAFTAR KEGIATAN</h2>
-  <label class="toggle-show">
-  <input type="checkbox" v-model="showCompleted" />
-   Tampilkan yang sudah selesai
-  </label>
 
-  <ul class="task-list">
+        <label class="toggle-show">
+          <input type="checkbox" v-model="showCompleted" />
+          Tampilkan yang sudah selesai
+        </label>
+
+        <ul class="task-list">
           <li v-for="(task, index) in filteredTasks" :key="index">
             <div class="task-content">
               <input type="checkbox" v-model="task.done" />
@@ -88,6 +90,7 @@ onMounted(() => {
             </div>
           </li>
         </ul>
+
         <div class="input-group">
           <input ref="inputField" v-model="newTask" type="text" placeholder="Masukkan kegiatan baru" />
           <button v-if="isEditing" @click="updateTask">Update</button>
@@ -95,106 +98,118 @@ onMounted(() => {
           <button v-if="isEditing" class="cancel-btn" @click="cancelEdit">Batal</button>
         </div>
       </div>
-      <footer class="footer">
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
       <p>© 2025 Andrino's App - Built with Vue 3</p>
     </footer>
-    </main>
+  </div>
 </template>
 
 
-
-<style scoped>
+<style>
 html, body, #app {
   margin: 0;
   padding: 0;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  min-height: 100vh;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(to bottom right, #cfe9ff, #e6f4ff);
-  overflow: hidden; 
+  background-color: #a5d8ff; 
+  display: flex;
+  flex-direction: column;
 }
 
 .navbar {
-  background-color: #0d6efd;
-  padding: 15px;
+  width: 100%;
+  background: linear-gradient(to right, #74c0fc, #4dabf7);
+  padding: 20px 0;
   text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
 .navbar-content h1 {
-  color: #fff;
   margin: 0;
-  font-size: 24px;
+  font-size: 28px;
+  color: white;
+  font-weight: bold;
 }
+
 
 .container {
-  width: 100%;
-  height: calc(100vh - 120px); 
+  flex: 1;
   display: flex;
   justify-content: center;
-  align-items: center;
-  padding: 0 10px;
+  align-items: flex-start;
+  padding: 60px 20px 20px 20px;
   box-sizing: border-box;
-  overflow: hidden;
 }
 
-
+/* Card Putih */
 .card {
-  background-color: #ffffff;
+  width: 100%;
+  max-width: 480px;
+  background: #ffffff;
   border-radius: 20px;
   padding: 30px 20px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 420px;
-  height: 100%;
-  max-height: 600px;
-  overflow-y: auto;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
   display: flex;
   flex-direction: column;
   animation: fadeIn 0.8s ease;
+  transition: all 0.3s ease-in-out;
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
+  from { opacity: 0; transform: translateY(30px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-
-h2 {
-  color: #0d6efd;
-  font-size: 26px;
-  margin-bottom: 20px;
-  text-align: center;
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
 }
 
+h2 {
+  color: #228be6;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Checkbox "Tampilkan yang sudah selesai" */
 .toggle-show {
   display: flex;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   font-size: 15px;
+  color: #228be6;
   gap: 8px;
-  color: #0d6efd;
 }
 
+/* Daftar Kegiatan */
 .task-list {
   list-style: none;
   padding: 0;
   margin: 0;
-  flex-grow: 1;
   overflow-y: auto;
+  flex-grow: 1;
+  max-height: 300px;
 }
 
 .task-list li {
-  padding: 10px 0;
-  border-bottom: 1px solid #aad4ff;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #b0d6f7;
 }
 
 .task-content {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   flex-wrap: wrap;
 }
 
@@ -203,48 +218,59 @@ h2 {
   color: #6c757d;
 }
 
+/* Tombol Edit & Hapus */
 .action-buttons {
   display: flex;
   gap: 8px;
 }
 
-.edit-btn,
-.delete-btn {
+.edit-btn, .delete-btn {
   background: none;
   border: none;
-  cursor: pointer;
   font-size: 18px;
-  color: #0d6efd;
+  color: #228be6;
+  cursor: pointer;
   transition: color 0.2s;
 }
 
 .edit-btn:hover {
-  color: #0b5ed7;
+  color: #1c7ed6;
+}
+
+.delete-btn {
+  color: #ff6b6b;
 }
 
 .delete-btn:hover {
-  color: #dc3545;
+  color: #fa5252;
 }
 
+/* Inputan Tambah Kegiatan */
 .input-group {
   display: flex;
   gap: 10px;
-  margin-top: 15px;
+  margin-top: 20px;
   flex-wrap: wrap;
 }
 
 input[type="text"] {
   flex: 1;
   padding: 10px;
-  border: 1px solid #aad4ff;
+  border: 1px solid #b0d6f7;
   border-radius: 6px;
   font-size: 15px;
   background-color: #eaf6ff;
+  transition: border-color 0.3s;
+}
+
+input[type="text"]:focus {
+  border-color: #228be6;
+  outline: none;
 }
 
 button {
   padding: 10px 12px;
-  background-color: #0d6efd;
+  background-color: #228be6;
   color: white;
   border: none;
   border-radius: 6px;
@@ -254,22 +280,41 @@ button {
 }
 
 button:hover {
-  background-color: #0b5ed7;
+  background-color: #1c7ed6;
 }
 
 .cancel-btn {
-  background-color: #dc3545;
+  background-color: #ff6b6b;
 }
 
 .cancel-btn:hover {
-  background-color: #bb2d3b;
+  background-color: #fa5252;
 }
 
+/* Footer */
 .footer {
-  background-color: #0d6efd;
-  padding: 10px;
+  width: 100%;
+  background: linear-gradient(to right, #74c0fc, #4dabf7);
+  padding: 12px 20px;
   text-align: center;
   color: white;
   font-size: 14px;
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .card {
+    padding: 20px 15px;
+    border-radius: 15px;
+  }
+
+  .navbar-content h1 {
+    font-size: 22px;
+  }
+
+  .footer {
+    font-size: 12px;
+  }
 }
 </style>
