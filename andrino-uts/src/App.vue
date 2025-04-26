@@ -15,6 +15,14 @@ const inputField = ref(null);
 const isEditing = ref(false);
 const editIndex = ref(null);
 const showCompleted = ref(true);
+
+const addTask = () => {
+  if (newTask.value.trim() !== "") {
+    tasks.value.push({ name: newTask.value.trim(), done: false });
+    newTask.value = "";
+  }
+};
+
 </script>
 
 <template>
