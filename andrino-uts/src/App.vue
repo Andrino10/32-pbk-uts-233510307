@@ -75,7 +75,19 @@ onMounted(() => {
   <input type="checkbox" v-model="showCompleted" />
    Tampilkan yang sudah selesai
   </label>
-  
+
+  <ul class="task-list">
+          <li v-for="(task, index) in filteredTasks" :key="index">
+            <div class="task-content">
+              <input type="checkbox" v-model="task.done" />
+              <span :class="{ done: task.done }">{{ index + 1 }}. {{ task.name }}</span>
+            </div>
+            <div class="action-buttons">
+              <button class="edit-btn" @click="editTask(index)">✏️</button>
+              <button class="delete-btn" @click="deleteTask(index)">🗑️</button>
+            </div>
+          </li>
+        </ul>
       </div>
   </main>
 </template>
