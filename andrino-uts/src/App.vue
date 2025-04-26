@@ -95,6 +95,9 @@ onMounted(() => {
           <button v-if="isEditing" class="cancel-btn" @click="cancelEdit">Batal</button>
         </div>
       </div>
+      <footer class="footer">
+      <p>© 2025 Andrino's App - Built with Vue 3</p>
+    </footer>
     </main>
 </template>
 
