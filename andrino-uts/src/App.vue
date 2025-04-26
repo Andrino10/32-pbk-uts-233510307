@@ -61,8 +61,17 @@ onMounted(() => {
 </script>
 
 <template>
+  <div id="app">
+    <nav class="navbar">
+      <div class="navbar-content">
+        <h1>Andrino's Activity List</h1>
+      </div>
+    </nav> 
+  </div>
 
 </template>
+
+
 
 <style scoped>
 
